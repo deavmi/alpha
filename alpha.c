@@ -7,6 +7,8 @@
  * *Prototyopes
  */
 Adapter* createDevice(char*);
+void addAdapter(Adapter*);
+void listAdapters();
 
 
 /**
@@ -22,7 +24,14 @@ int main()
      * TODO: Testing code
      * 1. Create a device named `alpha0`
      */
-    createDevice("alpha0");
+    Adapter* adapter1 = createDevice("alpha0");
+
+    addAdapter(adapter1);
+    listAdapters();
+
+    Adapter* adapter2 = createDevice("alpha1");
+    addAdapter(adapter2);
+    listAdapters();
 
 }
 
@@ -94,5 +103,28 @@ void addAdapter(Adapter* adapter)
             current->next = adapter;
         }
 
+    }
+}
+
+/**
+ * Lists all the current adapaters
+ */
+void listAdapters()
+{
+    Adapter* current = adapterQueue;
+
+    if(current)
+    {
+        do
+        {
+            printf("Device: %s\n", current->interfaceName);
+        }
+        while((current = current->next));
+
+    }
+    else
+    {
+        /* TODO: Error */
+        printf("Error iterating adapter queue, it is empty\n");
     }
 }
