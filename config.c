@@ -17,23 +17,32 @@ void test()
     {
         struct stat fileInfo;
       
-        stat(configPath, &fileInfo);
-        uint_least8_t fileSize = fileInfo.st_size;
-      
-        printf("Config file size: %u\n", fileSize);
-      
-        u_int8_t* configBuffer = malloc(fileSize+1);
-        
-        /* On allocation success */
-        if(configBuffer)
+        /* On sucess of stat */
+        if(stat(configPath, &fileInfo) == 0)
         {
-            read(configFD, configBuffer, fileSize);
+            uint_least8_t fileSize = fileInfo.st_size;
+      
+            printf("Config file size: %u\n", fileSize);
           
-            /* Add null-terminator */
-            *(configBuffer+fileSize+1) = 0;
-          
-            printf("%s", configBuffer);
+            u_int8_t* configBuffer = malloc(fileSize+1);
+            
+            /* On allocation success */
+            if(configBuffer)
+            {
+                read(configFD, configBuffer, fileSize);
+              
+                /* Add null-terminator */
+                *(configBuffer+fileSize+1) = 0;
+              
+                printf("%s", configBuffer);
+            }
         }
+        else
+        {
+            printf("Error stat()'ing file\n");
+        }
+        
+        
         
     }
     else
