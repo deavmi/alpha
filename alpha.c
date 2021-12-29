@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include "types.h"
 #include "libtun.h"
+#include<stdint.h>
 
 /**
  * *Prototyopes
@@ -112,12 +113,14 @@ void addAdapter(Adapter* adapter)
 void listAdapters()
 {
     Adapter* current = adapterQueue;
+    uint_least8_t adapterCnt = 0;
 
     if(current)
     {
         do
         {
-            printf("Device: %s\n", current->interfaceName);
+            printf("Adapter (%u): %s\n", adapterCnt, current->interfaceName);
+            adapterCnt++;
         }
         while((current = current->next));
 
