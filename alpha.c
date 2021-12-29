@@ -12,7 +12,7 @@ Adapter* createDevice(char*);
 /**
  * Global session state management
  */
-Adapter* adapterQueue;
+Adapter* adapterQueue = NULL;
 
 int main()
 {
@@ -25,7 +25,6 @@ int main()
     createDevice("alpha0");
 
 }
-
 
 /**
  * Spawns a new TUN device wrapped
@@ -48,7 +47,8 @@ Adapter* createDevice(char* name)
         /* TODO: Fetch final name */
         adapter->interfaceName = "poes";
 
-
+        /* NULL out `next` ptr */
+        adapter->next = NULL;
     }
     else
     {
@@ -57,4 +57,42 @@ Adapter* createDevice(char* name)
     }
 
     return adapter;
+}
+
+/**
+ * Add the given Adapter to the list of
+ * adapters
+ */
+void addAdapter(Adapter* adapter)
+{
+    /* Only add the adapter if it isn't NULL */
+    if(adapter)
+    {
+        Adapter* current = adapterQueue;
+
+        /**
+         * If the wueue is empty then we
+         * make the head of the queue the
+         * adapter to be added
+         */
+        if(adapterQueue == NULL)
+        {
+            adapterQueue = adapter;
+        }
+        /**
+         * Else, we iterate till the tail
+         * of the adapter queue and add it
+         * to the tail
+         */
+        else
+        {
+            while(current->next)
+            {
+                current = current->next;
+            }
+
+            current->next = adapter;
+        }
+
+    }
 }
