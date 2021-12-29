@@ -3,11 +3,17 @@ alphaVPN
 
 ## Build
 
-To build alpha simply run the following:
+Firstly you will need a working internet connection to build alpha, this is due to the fact
+that the tunneling code needs to be fetched from a remote repository. If you are online
+then you may proceed to build alpha with the following command:
 
 ```bash
 make
 ```
+
+### Dependencies
+
+1. `jansson-devel`
 
 ## Usage
 

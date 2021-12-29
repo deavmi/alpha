@@ -3,6 +3,7 @@
 #include "types.h"
 #include "libtun.h"
 #include<stdint.h>
+#include "config.h"
 
 /**
  * *Prototyopes
@@ -27,12 +28,15 @@ int main()
      */
     Adapter* adapter1 = createDevice("alpha0");
 
+    listAdapters();
     addAdapter(adapter1);
     listAdapters();
 
     Adapter* adapter2 = createDevice("alpha1");
     addAdapter(adapter2);
     listAdapters();
+
+    test();
 
 }
 
