@@ -17,7 +17,7 @@ void test()
     {
         struct stat fileInfo;
       
-        /* On sucess of stat */
+        /* On stat() success */
         if(stat(configPath, &fileInfo) == 0)
         {
             uint_least8_t fileSize = fileInfo.st_size;
@@ -37,8 +37,10 @@ void test()
                 printf("%s", configBuffer);
             }
         }
+        /* On stat() failure */
         else
         {
+            /* TODO: Handle this */
             printf("Error stat()'ing file\n");
         }
         
