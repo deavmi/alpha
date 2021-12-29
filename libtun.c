@@ -1,10 +1,18 @@
 /**
- * I have borrowed this code from the `libtun`
- * project of mine whicn you can view in the
- * link below
- * 
- * https://github.com/deavmi/libtun
- */
+* This module is used just to interface between the Linux
+* kernel (via GLIBC) such that the tun adpater can be setup
+* and destroyed
+*
+* `int createTun(char* interfaceName)`
+*   - This creates a tun interface with the provided name
+*   - and returns the fd
+* `int destroyTun(int fd)`
+*   - This destroys the tun interface given
+*
+* Once we have the fd everything else can be done in D
+* as we just read()/write() on the returned fd we got
+* using `createTun`
+*/
 
 #include<linux/if.h>
 #include<linux/if_tun.h>
@@ -12,19 +20,11 @@
 #include<string.h>
 #include<sys/ioctl.h>
 #include<unistd.h>
-#include<stdint.h>
 
-/* TODO: Update types here using stdint */
-uint32_t createTun(char* interfaceName, int32_t iffFlags)
+int createTun(char* interfaceName, int iffFlags)
 {
     /* TODO: Add all required error checking */
-    int32_t tunFD = open("/dev/net/tun", O_RDWR);
-
-    /* If error */
-    if(tunFD < 0)
-    {
-        return tunFD;
-    }
+    int tunFD = open("/dev/net/tun", O_RDWR);
 
     /* TUN properties */
     struct ifreq interfaceReqData;
@@ -38,22 +38,22 @@ uint32_t createTun(char* interfaceName, int32_t iffFlags)
     strcpy(interfaceReqData.ifr_name, interfaceName);
 
     /* Attempt to bring up the tun device node */
-    int32_t tunStatus = ioctl(tunFD, TUNSETIFF, &interfaceReqData);
+    int tunStatus = ioctl(tunFD, TUNSETIFF, &interfaceReqData);
 
     if(tunStatus < 0)
     {
-        tunFD = tunStatus;
+        tunFD =  tunStatus;
     }
 
     return tunFD;
 }
 
-uint32_t destroyTun(uint32_t fd)
+int destroyTun(int fd)
 {
     return close(fd);
 }
 
-uint32_t tunWrite(uint32_t fd, char* data, int length)
+int tunWrite(int fd, char* data, int length)
 {
     write(fd, data, length);
 }
@@ -64,8 +64,7 @@ uint32_t tunWrite(uint32_t fd, char* data, int length)
 *
 * (FIXME: For now we just read 20 bytes)
 */
-uint32_t tunRead(uint32_t fd, char* data, int amount)
+int tunRead(int fd, char* data, int amount)
 {
     return read(fd, data, amount);
 }
-
