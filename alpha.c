@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "types.h"
+#include "libtun.h"
 
 /**
  * *Prototyopes
@@ -30,6 +31,9 @@ int main()
  * Spawns a new TUN device wrapped
  * in an Adapter struct, on failure
  * NULL is returned
+ *
+ * TODO: Add ifType argument,
+ * `TAP` or `TUN`?
  */
 Adapter* createDevice(char* name)
 {
@@ -43,6 +47,8 @@ Adapter* createDevice(char* name)
 
         /* TODO: Fetch final name */
         adapter->interfaceName = "poes";
+
+
     }
     else
     {
