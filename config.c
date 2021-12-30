@@ -4,6 +4,7 @@
 #include<unistd.h>
 #include<stdio.h>
 #include<stdint.h>
+#include "session.h"
 
 /**
  * Prototypes
@@ -30,7 +31,7 @@ void test()
       
             printf("Config file size: %u\n", fileSize);
           
-            u_int8_t* configBuffer = malloc(fileSize+1);
+            uint8_t* configBuffer = malloc(fileSize+1);
             
             /* On allocation success */
             if(configBuffer)
@@ -80,14 +81,15 @@ void test()
     
 }
 
+
+
 /**
  * Parses the JSON configuration given the
  * root of the JSON structure
  */
 void parseConfig(json_t* configJSON)
 {
-    /* TODO: Figure out const meaning */
-    u_int8_t* key;
+    uint8_t* key; /* TODO: Figure out const meaning */
     json_t* value;
     json_object_foreach (configJSON, key, value)
     {
