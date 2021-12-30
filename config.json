@@ -1,7 +1,9 @@
 {
-	"session1" :  {
+	"session1" : {
+		"interface": "alpha0"
 	},
 	
 	"session2" : {
+		"interface": "alpha0"
 	}
 }
