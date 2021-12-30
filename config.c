@@ -106,8 +106,17 @@ void parseConfig(json_t* configJSON)
           
             /* Fetch the interface name */
             json_t* interfaceJSON = json_object_get(sessionObject, "interface");
-            uint8_t* interfaceNameRequested = json_string_value(interfaceJSON);
-            printf("Interface name: %s\n", interfaceNameRequested);
+            if(interfaceJSON)
+            {
+                /* TODO: Handle type error */
+                uint8_t* interfaceNameRequested = json_string_value(interfaceJSON);
+                printf("Interface name: %s\n", interfaceNameRequested);
+            }
+            else
+            {
+                /* TODO: Handle error here, json error? */
+                printf("Couldn't find `interfaceName` declaration for session %s\n", key);
+            }
             
             //newSession->requestedInterface = 
         }
