@@ -12,7 +12,7 @@ void parseConfig(json_t*);
 
 void test()
 {
-    char* configPath = "config.json";
+    u_int8_t* configPath = "config.json";
   
     /* TODO: Remove this, this is just a test */
     int configFD = open(configPath, O_RDONLY);
@@ -40,8 +40,6 @@ void test()
               
                 /* Add null-terminator */
                 *(configBuffer+fileSize+1) = 0;
-              
-              printf("%s", configBuffer);
               
                 /* Load the configuration */
                 json_error_t jsonError;
@@ -89,7 +87,7 @@ void test()
 void parseConfig(json_t* configJSON)
 {
     /* TODO: Figure out const meaning */
-    char* key;
+    u_int8_t* key;
     json_t* value;
     json_object_foreach (configJSON, key, value)
     {
