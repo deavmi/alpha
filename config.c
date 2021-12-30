@@ -110,7 +110,17 @@ void parseConfig(json_t* configJSON)
             {
                 /* TODO: Handle type error */
                 uint8_t* interfaceNameRequested = json_string_value(interfaceJSON);
-                printf("Interface name: %s\n", interfaceNameRequested);
+              
+                if(interfaceNameRequested)
+                {
+                    printf("Interface name: %s\n", interfaceNameRequested);
+                    newSession->requestedInterface = interfaceNameRequested;
+                }
+                else
+                {
+                    printf("`interface` must be a string\n");
+                }
+                
             }
             else
             {
