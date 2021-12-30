@@ -88,12 +88,32 @@ void test()
  * root of the JSON structure
  */
 void parseConfig(json_t* configJSON)
-{
+{  
     uint8_t* key; /* TODO: Figure out const meaning */
     json_t* value;
     json_object_foreach (configJSON, key, value)
     {
         // Iterate here
         printf("Key %s\n", key);
+      
+        Session* newSession = malloc(sizeof(Session));
+      
+        /* TODO: Check for errors here (throughout the whole thing) */
+        if(newSession)
+        {
+            /* Fetch the session object */
+            json_t* sessionObject = json_object_get(configJSON, key);
+          
+            /* Fetch the interface name */
+            json_t* interfaceJSON = json_object_get(sessionObject, "interface");
+            uint8_t* interfaceNameRequested = json_string_value(interfaceJSON);
+            printf("Interface name: %s\n", interfaceNameRequested);
+            
+            //newSession->requestedInterface = 
+        }
+        else
+        {
+            //TODO: Error allocating
+        }
     }
 }
