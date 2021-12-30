@@ -6,6 +6,10 @@
 		"peer": {
 			"publicKey": "fjdufyd7ht78UGH=",
 			"endpoint": "google.com:1111"
+		},
+		"hooks": {
+			"up": "fuck",
+			"down": "poes"
 		}
 	},
 	
