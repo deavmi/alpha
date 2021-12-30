@@ -1,6 +1,12 @@
 {
 	"session1" : {
-		"interface": "alpha0"
+		"interface": "alpha0",
+		"privateKey": "sdhjfhdsybGFYTBYHGHvHVhnY&U7tu6567567+",
+		"listen": "[::]:1001",
+		"peer": {
+			"publicKey": "fjdufyd7ht78UGH=",
+			"endpoint": "goo.com:1"
+		}
 	},
 	
 	"session2" : {

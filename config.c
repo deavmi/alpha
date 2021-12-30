@@ -25,7 +25,8 @@ void test()
         /* On stat() success */
         if(stat(configPath, &fileInfo) == 0)
         {
-            uint_least8_t fileSize = fileInfo.st_size;
+            /* FIXME: `uint_least8_t` didn't work, it stayed small */
+            uint64_t fileSize = fileInfo.st_size;
       
             printf("Config file size: %u\n", fileSize);
           
@@ -39,6 +40,8 @@ void test()
               
                 /* Add null-terminator */
                 *(configBuffer+fileSize+1) = 0;
+              
+              printf("%s", configBuffer);
               
                 /* Load the configuration */
                 json_error_t jsonError;
@@ -54,9 +57,11 @@ void test()
                 else
                 {
                     printf("Error parsing configuration file: %s\n", jsonError.text);
-                }
-              
-                //printf("%s", configBuffer);
+                }   
+            }
+            else
+            {
+                printf("Error allocating config file memory buffer\n");
             }
         }
         /* On stat() failure */
