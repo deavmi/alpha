@@ -108,9 +108,8 @@ void parseConfig(json_t* configJSON)
             json_t* interfaceJSON = json_object_get(sessionObject, "interface");
             if(interfaceJSON)
             {
-                /* TODO: Handle type error */
+                /* Fetch interface name */
                 uint8_t* interfaceNameRequested = json_string_value(interfaceJSON);
-              
                 if(interfaceNameRequested)
                 {
                     printf("Interface name: %s\n", interfaceNameRequested);
@@ -119,6 +118,7 @@ void parseConfig(json_t* configJSON)
                 else
                 {
                     printf("`interface` must be a string\n");
+                    return;
                 }
                 
             }
@@ -126,13 +126,43 @@ void parseConfig(json_t* configJSON)
             {
                 /* TODO: Handle error here, json error? */
                 printf("Couldn't find `interfaceName` declaration for session %s\n", key);
+                return;
             }
+          
+            /* Fetch the private key */
+            json_t* privateKeyJSON = json_object_get(sessionObject, "privateKey");
+            if(privateKeyJSON)
+            {
+                /* Fetch private key */
+                uint8_t* privateKey = json_string_value(privateKeyJSON);
+                if(privateKey)
+                {
+                    printf("Private key: %s\n", privateKey);
+                    newSession->privateKey = privateKey;
+                }
+                else
+                {
+                    printf("`privateKey` must be a string\n");
+                    return;
+                }
+                
+            }
+            else
+            {
+                /* TODO: Handle error here, json error? */
+                printf("Couldn't find `privateKey` declaration for session %s\n", key);
+                return;
+            }
+          
+            
             
             //newSession->requestedInterface = 
         }
         else
         {
             //TODO: Error allocating
+            printf("Allocation failure\n");
+            return;
         }
     }
 }
