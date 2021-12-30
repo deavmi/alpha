@@ -5,7 +5,7 @@
 		"listen": "[::]:1001",
 		"peer": {
 			"publicKey": "fjdufyd7ht78UGH=",
-			"endpoint": "goo.com:1"
+			"endpoint": "google.com:1111"
 		}
 	},
 	
