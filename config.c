@@ -40,7 +40,7 @@ void test()
                 /* Add null-terminator */
                 *(configBuffer+fileSize+1) = 0;
               
-                /* Load the configuration (TODO: Check for errors) */
+                /* Load the configuration */
                 json_error_t jsonError;
                 json_t* rootJSON = json_loads(configBuffer, 0, &jsonError);
               
