@@ -3,7 +3,7 @@
  */
 
 #include<jansson.h>
-#include "session.h"
+#include "types.h"
 
 void test();
 Session* parseConfig(json_t*);

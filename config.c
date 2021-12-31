@@ -4,7 +4,7 @@
 #include<unistd.h>
 #include<stdio.h>
 #include<stdint.h>
-#include "session.h"
+#include "types.h"
 
 /**
  * Prototypes
