@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include "types.h"
 #include "libtun.h"
 #include<stdint.h>
 #include "config.h"

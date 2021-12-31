@@ -1,5 +1,19 @@
 #include<stdint.h>
 
+struct Adapter
+{
+    /* Final adapter name */
+    char* interfaceName;
+  
+    /* fd to tun/tap devie */
+    int fd;
+  
+    /* Next Adapter */
+    struct Adapter* next;
+};
+typedef struct Adapter Adapter;
+
+
 /**
  * Hooks
  */
@@ -38,7 +52,7 @@ struct Session
     Peer peer;
   
     /* TODO: Add Adapter here */
-    //
+    
     
     /* Hooks */
     HookSet hooks;
