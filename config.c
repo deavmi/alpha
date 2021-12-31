@@ -9,7 +9,8 @@
 /**
  * Prototypes
  */
-void parseConfig(json_t*);
+Session* parseConfig(json_t*);
+void test();
 
 void test()
 {
@@ -87,8 +88,10 @@ void test()
  * Parses the JSON configuration given the
  * root of the JSON structure
  */
-void parseConfig(json_t* configJSON)
-{  
+Session* parseConfig(json_t* configJSON)
+{
+    Session* head = 0;
+  
     uint8_t* key; /* TODO: Figure out const meaning */
     json_t* value;
     json_object_foreach (configJSON, key, value)
@@ -97,6 +100,12 @@ void parseConfig(json_t* configJSON)
         printf("Key %s\n", key);
       
         Session* newSession = malloc(sizeof(Session));
+        
+        /* Set the head */
+        if(head == 0)
+        {
+            head = newSession;
+        }
       
         /* TODO: Check for errors here (throughout the whole thing) */
         if(newSession)
@@ -118,14 +127,14 @@ void parseConfig(json_t* configJSON)
                 else
                 {
                     printf("`interface` must be a string\n");
-                    return;
+                    return 0;
                 }
             }
             else
             {
                 /* TODO: Handle error here, json error? */
                 printf("Couldn't find `interfaceName` declaration for session %s\n", key);
-                return;
+                return 0;
             }
           
             /* Fetch the private key */
@@ -142,14 +151,14 @@ void parseConfig(json_t* configJSON)
                 else
                 {
                     printf("`privateKey` must be a string\n");
-                    return;
+                    return 0;
                 }
             }
             else
             {
                 /* TODO: Handle error here, json error? */
                 printf("Couldn't find `privateKey` declaration for session %s\n", key);
-                return;
+                return 0;
             }
           
             /* Fetch the listen address */
@@ -166,25 +175,27 @@ void parseConfig(json_t* configJSON)
                 else
                 {
                     printf("`listenAddress` must be a string\n");
-                    return;
+                    return 0;
                 }
             }
             else
             {
                 /* TODO: Handle error here, json error? */
                 printf("Couldn't find `listen` declaration for session %s\n", key);
-                return;
+                return 0;
             }
           
             
             
-            //newSession->requestedInterface = 
+            
         }
         else
         {
             //TODO: Error allocating
             printf("Allocation failure\n");
-            return;
+            return 0;
         }
     }
+  
+    return head;
 }

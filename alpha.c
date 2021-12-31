@@ -6,7 +6,7 @@
 #include "config.h"
 
 /**
- * *Prototyopes
+ * Prototyopes
  */
 Adapter* createDevice(char*);
 void addAdapter(Adapter*);
