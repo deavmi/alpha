@@ -120,7 +120,6 @@ void parseConfig(json_t* configJSON)
                     printf("`interface` must be a string\n");
                     return;
                 }
-                
             }
             else
             {
@@ -145,12 +144,35 @@ void parseConfig(json_t* configJSON)
                     printf("`privateKey` must be a string\n");
                     return;
                 }
-                
             }
             else
             {
                 /* TODO: Handle error here, json error? */
                 printf("Couldn't find `privateKey` declaration for session %s\n", key);
+                return;
+            }
+          
+            /* Fetch the listen address */
+            json_t* listenAddrJSON = json_object_get(sessionObject, "listen");
+            if(listenAddrJSON)
+            {
+                /* Fetch listen address */
+                uint8_t* listenAddress = json_string_value(listenAddrJSON);
+                if(listenAddress)
+                {
+                    printf("Listen addressL %s\n", listenAddress);
+                    newSession->listenAddr = listenAddress;
+                }
+                else
+                {
+                    printf("`listenAddress` must be a string\n");
+                    return;
+                }
+            }
+            else
+            {
+                /* TODO: Handle error here, json error? */
+                printf("Couldn't find `listen` declaration for session %s\n", key);
                 return;
             }
           
