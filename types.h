@@ -32,6 +32,7 @@ struct Peer
 {
     uint8_t* publicKey;
     uint8_t* endpoint;
+    uint8_t* bindAddr;
   
     /* Endpoint fd */
     int fd;
