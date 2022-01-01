@@ -30,7 +30,11 @@ typedef struct HookSet HookSet;
  */
 struct Peer
 {
-    //
+    uint8_t* publicKey;
+    uint8_t* endpoint;
+  
+    /* Endpoint fd */
+    int fd;
 };
 typedef struct Peer Peer;
 
