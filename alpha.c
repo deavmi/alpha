@@ -8,35 +8,49 @@
  * Prototyopes
  */
 Adapter* createDevice(char*);
-void addAdapter(Adapter*);
-void listAdapters();
-
-
-/**
- * Global session state management
- */
-Adapter* adapterQueue = NULL;
+void setupAdapters(Session*);
 
 int main()
 {
     printf("Starting alphavpn...\n");
 
-    /**
-     * TODO: Testing code
-     * 1. Create a device named `alpha0`
-     */
-    Adapter* adapter1 = createDevice("alpha0");
 
-    listAdapters();
-    addAdapter(adapter1);
-    listAdapters();
+    Session* sessionHead = getSessionConfig();
+    if(sessionHead)
+    {
+        setupAdapters(sessionHead);
+    }
+    else
+    {
+        printf("Error when reading configuration file\n");
+    }
 
-    Adapter* adapter2 = createDevice("alpha1");
-    addAdapter(adapter2);
-    listAdapters();
+}
 
-    test();
+/**
+ * Setup the adapters for each session
+ */
+void setupAdapters(Session* session)
+{
+    while(session)
+    {
+        // TODO: Implement me
+        Adapter* newAdapter = createDevice(session->requestedInterface);
 
+        /**
+         * If the creation of a new Adapter succeeds,
+         * i.e. the allocation of a new TUN or TAP adapter
+         * if successful, then attach this adapter to
+         * its related Session
+         */
+        if(newAdapter)
+        {
+            session->adapter = *newAdapter;
+        }
+
+        /* Move onto next Session */
+        session = session->next;
+    }
 }
 
 /**
@@ -58,79 +72,17 @@ Adapter* createDevice(char* name)
         adapter->fd = 0;
 
         /* TODO: Fetch final name */
-        adapter->interfaceName = "poes";
+        adapter->interfaceName = name;
 
         /* NULL out `next` ptr */
         adapter->next = NULL;
+
+        return adapter;
     }
     else
     {
         /* TODO: Remove this later */
         printf("Allocation failure for device name '%s'!", name);
-    }
-
-    return adapter;
-}
-
-/**
- * Add the given Adapter to the list of
- * adapters
- */
-void addAdapter(Adapter* adapter)
-{
-    /* Only add the adapter if it isn't NULL */
-    if(adapter)
-    {
-        Adapter* current = adapterQueue;
-
-        /**
-         * If the wueue is empty then we
-         * make the head of the queue the
-         * adapter to be added
-         */
-        if(adapterQueue == NULL)
-        {
-            adapterQueue = adapter;
-        }
-        /**
-         * Else, we iterate till the tail
-         * of the adapter queue and add it
-         * to the tail
-         */
-        else
-        {
-            while(current->next)
-            {
-                current = current->next;
-            }
-
-            current->next = adapter;
-        }
-
-    }
-}
-
-/**
- * Lists all the current adapaters
- */
-void listAdapters()
-{
-    Adapter* current = adapterQueue;
-    uint_least8_t adapterCnt = 0;
-
-    if(current)
-    {
-        do
-        {
-            printf("Adapter (%u): %s\n", adapterCnt, current->interfaceName);
-            adapterCnt++;
-        }
-        while((current = current->next));
-
-    }
-    else
-    {
-        /* TODO: Error */
-        printf("Error iterating adapter queue, it is empty\n");
+        return 0;
     }
 }

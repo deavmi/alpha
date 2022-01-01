@@ -14,6 +14,16 @@
 	},
 	
 	"session2" : {
-		"interface": "alpha1"
+		"interface": "alpha0",
+		"privateKey": "sdhjfhdsybGFYTBYHGHvHVhnY&U7tu6567567+",
+		"listen": "[::]:1001",
+		"peer": {
+			"publicKey": "fjdufyd7ht78UGH=",
+			"endpoint": "google.com:1111"
+		},
+		"hooks": {
+			"up": "fuck",
+			"down": "poes"
+		}
 	}
 }

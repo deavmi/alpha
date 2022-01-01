@@ -52,6 +52,7 @@ struct Session
     Peer peer;
   
     /* TODO: Add Adapter here */
+    Adapter adapter;
     
     
     /* Hooks */

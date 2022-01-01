@@ -10,9 +10,8 @@
  * Prototypes
  */
 Session* parseConfig(json_t*);
-void test();
 
-void test()
+Session* getSessionConfig()
 {
     u_int8_t* configPath = "config.json";
   
@@ -51,17 +50,19 @@ void test()
                 if(rootJSON)
                 {
                     /* Parse the configuration */
-                    parseConfig(rootJSON);
+                    return parseConfig(rootJSON);
                 }
                 /* On JSON parse failure */
                 else
                 {
                     printf("Error parsing configuration file: %s\n", jsonError.text);
+                    return 0;
                 }   
             }
             else
             {
                 printf("Error allocating config file memory buffer\n");
+                return 0;
             }
         }
         /* On stat() failure */
@@ -69,17 +70,15 @@ void test()
         {
             /* TODO: Handle this */
             printf("Error stat()'ing file\n");
+            return 0;
         }
-        
-        
-        
     }
     else
     {
         /* TODO: Remove this */
         printf("Opening config file failed\n");
+        return 0;
     }
-    
 }
 
 
