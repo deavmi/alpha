@@ -229,10 +229,8 @@ Session* parseConfig(json_t* configJSON)
                 return 0;
             }
           
-            
-            
-            /* TODO: COntinue here */
-            //do attachement (chaining) of Sessions
+          
+            /* TODO: Add remaining checks */
         }
         else
         {
