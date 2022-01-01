@@ -194,6 +194,41 @@ Session* parseConfig(json_t* configJSON)
                 return 0;
             }
           
+            /* Fetch the peer block */
+            json_t* peerBlock = json_object_get(sessionObject, "peer");
+            if(peerBlock)
+            {
+                /* Fetch the publicKey */
+                json_t* publicKeyJSON = json_object_get(peerBlock, "publicKey");
+                if(publicKeyJSON)
+                {
+                    /* Fetch the public key */
+                    uint8_t* publicKey = json_string_value(publicKeyJSON);
+                    if(publicKey)
+                    {
+                        printf("Public key: %s\n", publicKey);
+                        newSession->peer.publicKey = publicKey;
+                    }
+                    else
+                    {
+                        printf("`publicKey` must be a string\n");
+                        return 0;
+                    }
+                }
+                else
+                {
+                    printf("Missing public key for session '%s'\n", key);
+                    return 0;
+                }
+
+                //TODO: Add endpoint conditional
+            }
+            else
+            {
+                printf("Could not find peer block for session '%s'\n", key);
+                return 0;
+            }
+          
             
             
             /* TODO: COntinue here */
