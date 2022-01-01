@@ -126,10 +126,15 @@ Session* parseConfig(json_t* configJSON)
              * The `listenAddr` field may be empty
              * and so may the `peer.endpoint` and
              * `peer.bind` fields. So zero these out.
+             * 
+             * The hooks may also be zeroed (optional)
+             * therefore `hooks.values` and `hooks.keys`
              */
             newSession->listenAddr = 0;
             newSession->peer.endpoint = 0;
             newSession->peer.bindAddr = 0;
+            newSession->hooks.values = 0;
+            newSession->hooks.keys = 0;
           
 
           
@@ -231,10 +236,47 @@ Session* parseConfig(json_t* configJSON)
                     printf("Missing public key for session '%s'\n", key);
                     return 0;
                 }
-
-                //TODO: Add endpoint conditional
                 
+                /* Fetch peer.endpoint (optional) */
+                json_t* endpointJSON = json_object_get(peerBlock, "endpoint");
+                if(endpointJSON)
+                {
+                    /* Fetch the peer.endpoint */
+                    uint8_t* endpoint = json_string_value(endpointJSON);
+                    if(endpoint)
+                    {
+                        printf("Endpoint: %s\n", endpoint);
+                        newSession->peer.endpoint = endpoint;
+                    }
+                    else
+                    {
+                        printf("`endpoint` must be a string\n");
+                        return 0;
+                    }
+                  
+                    /* Fetch peer.bind (optional) */
+                    json_t* bindJSON = json_object_get(peerBlock, "bind");
+                    if(bindJSON)
+                    {
+                        /* Fetch the peer.bind */
+                        uint8_t* bind = json_string_value(bindJSON);
+                        if(bind)
+                        {
+                            printf("Bind (for source): %s\n", bind);
+                            newSession->peer.bindAddr = bind;
+                        }
+                        else
+                        {
+                            printf("`bind` must be a string\n");
+                            return 0;
+                        }
+                    }
+                }
                 
+                /**
+                 * TODO: Later features to add near end of the alpha "alpha"
+                 * will be the setting up of hooks
+                 */
             }
             else
             {
