@@ -103,6 +103,15 @@ Session* parseConfig(json_t* configJSON)
         
         /* Set the Session's name */
         newSession->name = key;
+      
+        /**
+         * The `listenAddr` field may be empty
+         * and so may the `peer.endpoint` and
+         * `peer.bind` fields. So zero these out.
+         */
+        newSession->listenAddr = 0;
+        newSession->peer.endpoint = 0;
+        newSession->peer.bindAddr = 0;
         
         /* Set the head */
         if(head == 0)
