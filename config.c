@@ -283,9 +283,6 @@ Session* parseConfig(json_t* configJSON)
                 printf("Could not find peer block for session '%s'\n", key);
                 return 0;
             }
-          
-          
-            /* TODO: Add remaining checks */
         }
         else
         {
