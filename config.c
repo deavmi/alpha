@@ -101,17 +101,7 @@ Session* parseConfig(json_t* configJSON)
       
         Session* newSession = malloc(sizeof(Session));
         
-        /* Set the Session's name */
-        newSession->name = key;
-      
-        /**
-         * The `listenAddr` field may be empty
-         * and so may the `peer.endpoint` and
-         * `peer.bind` fields. So zero these out.
-         */
-        newSession->listenAddr = 0;
-        newSession->peer.endpoint = 0;
-        newSession->peer.bindAddr = 0;
+        
         
         /* Set the head */
         if(head == 0)
@@ -128,6 +118,21 @@ Session* parseConfig(json_t* configJSON)
         /* TODO: Check for errors here (throughout the whole thing) */
         if(newSession)
         {
+          
+            /* Set the Session's name */
+            newSession->name = key;
+          
+            /**
+             * The `listenAddr` field may be empty
+             * and so may the `peer.endpoint` and
+             * `peer.bind` fields. So zero these out.
+             */
+            newSession->listenAddr = 0;
+            newSession->peer.endpoint = 0;
+            newSession->peer.bindAddr = 0;
+          
+
+          
             /* Fetch the session object */
             json_t* sessionObject = json_object_get(configJSON, key);
           
