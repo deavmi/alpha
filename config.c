@@ -155,7 +155,6 @@ Session* parseConfig(json_t* configJSON)
             }
             else
             {
-                /* TODO: Handle error here, json error? */
                 printf("Couldn't find `interfaceName` declaration for session %s\n", key);
                 return 0;
             }
@@ -179,7 +178,6 @@ Session* parseConfig(json_t* configJSON)
             }
             else
             {
-                /* TODO: Handle error here, json error? */
                 printf("Couldn't find `privateKey` declaration for session %s\n", key);
                 return 0;
             }
@@ -203,7 +201,6 @@ Session* parseConfig(json_t* configJSON)
             }
             else
             {
-                /* TODO: Handle error here, json error? */
                 printf("Couldn't find `listen` declaration for session %s\n", key);
                 return 0;
             }
@@ -236,6 +233,8 @@ Session* parseConfig(json_t* configJSON)
                 }
 
                 //TODO: Add endpoint conditional
+                
+                
             }
             else
             {
@@ -248,7 +247,6 @@ Session* parseConfig(json_t* configJSON)
         }
         else
         {
-            //TODO: Error allocating
             printf("Allocation failure\n");
             return 0;
         }
