@@ -55,11 +55,6 @@ void setupAdapters(Session* session)
 
         /* Move onto next Session */
         session = session->next;
-        /* FIXME: The configParser doesn't attach (chain) them yet */
-        if(session)
-        {
-            printf("Poes");
-        }
     }
 }
 
