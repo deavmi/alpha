@@ -46,10 +46,20 @@ void setupAdapters(Session* session)
         if(newAdapter)
         {
             session->adapter = *newAdapter;
+            printf("Succesfully attached adapter to session '%s'\n", session->name);
+        }
+        else
+        {
+            printf("Failure to attach adpater to session '%s'\n", session->name);
         }
 
         /* Move onto next Session */
         session = session->next;
+        /* FIXME: The configParser doesn't attach (chain) them yet */
+        if(session)
+        {
+            printf("Poes");
+        }
     }
 }
 
@@ -74,8 +84,7 @@ Adapter* createDevice(char* name)
         /* TODO: Fetch final name */
         adapter->interfaceName = name;
 
-        /* NULL out `next` ptr */
-        adapter->next = NULL;
+        printf("Adapter alloc() good\n");
 
         return adapter;
     }

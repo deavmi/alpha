@@ -39,6 +39,9 @@ typedef struct Peer Peer;
  */
 struct Session
 {
+    /* Session name */
+    uint8_t* name;
+
     /* Interface name (requested) */
     uint8_t* requestedInterface;
   

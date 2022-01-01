@@ -100,6 +100,9 @@ Session* parseConfig(json_t* configJSON)
       
         Session* newSession = malloc(sizeof(Session));
         
+        /* Set the Session's name */
+        newSession->name = key;
+        
         /* Set the head */
         if(head == 0)
         {
