@@ -90,6 +90,7 @@ Session* getSessionConfig()
 Session* parseConfig(json_t* configJSON)
 {
     Session* head = 0;
+    Session* last = 0;
   
     uint8_t* key; /* TODO: Figure out const meaning */
     json_t* value;
@@ -107,6 +108,12 @@ Session* parseConfig(json_t* configJSON)
         if(head == 0)
         {
             head = newSession;
+            last = head;
+        }
+        /* Set the current Session as the last Sessoin's sucessor */
+        else
+        {
+            last->next = newSession;
         }
       
         /* TODO: Check for errors here (throughout the whole thing) */
@@ -189,7 +196,8 @@ Session* parseConfig(json_t* configJSON)
           
             
             
-            
+            /* TODO: COntinue here */
+            //do attachement (chaining) of Sessions
         }
         else
         {
