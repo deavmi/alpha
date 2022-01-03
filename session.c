@@ -16,6 +16,11 @@
 #include <linux/sched.h>
 
 
+/**
+ * Globals
+ */
+Session* sessionQueue = 0;
+
 /*
  * Prototypes
  */
@@ -27,7 +32,10 @@ void sessionMainFunc(void*);
  */
 void setupSessions(Session* head)
 {
-    uint8_t i =0;
+    /* Store the head into a global variable */
+    sessionQueue = head;
+
+    uint8_t i = 0;
     while(head)
     {
         /* Initialize the session */
@@ -149,6 +157,14 @@ void sessionMainFunc(void* data)
 
     /* TODO: Cast and store data */
     printf("Hello from me %u and session '%s'\n", getpid(), session->name);
+
+
+    /* TODO: Spawn two threads here and let this one just hang o provide
+     * management of the sorts
+     *
+     * 1. Server listenr (incoming connections)
+     * 2. Server outbounder (outgoing connection)
+     */
 
     while(1)
     {
