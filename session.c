@@ -20,6 +20,8 @@
 
 #include<sodium/core.h>
 
+#include<assert.h>
+
 /**
  * Globals
  */
@@ -43,25 +45,13 @@ void unlockSession(Session*);
 
 void lockSession(Session* session)
 {
-    if(session)
-    {
-        pthread_mutex_lock(&session->lock);
-    }
-    else
-    {
-        /* TODO: Add assert() */
-    }
+    assert(session);
+    pthread_mutex_lock(&session->lock);
 }
 void unlockSession(Session* session)
 {
-    if(session)
-    {
-        pthread_mutex_unlock(&session->lock);
-    }
-    else
-    {
-        /* TODO: Add assert() */
-    }
+    assert(session);
+    pthread_mutex_unlock(&session->lock);
 }
 
 
