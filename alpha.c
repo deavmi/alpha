@@ -9,6 +9,7 @@
  */
 Adapter* createDevice(char*);
 void setupAdapters(Session*);
+void setupSessions(Session*);
 
 int main()
 {
@@ -18,7 +19,7 @@ int main()
     Session* sessionHead = getSessionConfig();
     if(sessionHead)
     {
-        setupAdapters(sessionHead);
+        setupSessions(sessionHead);
     }
     else
     {
@@ -78,8 +79,6 @@ Adapter* createDevice(char* name)
 
         /* TODO: Fetch final name */
         adapter->interfaceName = name;
-
-        printf("Adapter alloc() good\n");
 
         return adapter;
     }

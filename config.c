@@ -92,6 +92,7 @@ Session* parseConfig(json_t* configJSON)
     Session* head = 0;
     Session* last = 0;
   
+
     uint8_t* key; /* TODO: Figure out const meaning */
     json_t* value;
     json_object_foreach (configJSON, key, value)
@@ -290,6 +291,6 @@ Session* parseConfig(json_t* configJSON)
             return 0;
         }
     }
-  
+
     return head;
 }
