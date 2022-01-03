@@ -18,6 +18,7 @@
 #define _GNU_SOURCE
 #include <linux/sched.h>
 
+#include<sodium/core.h>
 
 /**
  * Globals
@@ -30,6 +31,39 @@ pthread_mutex_t sessionQueueLock;
  */
 void initSession(Session*);
 void sessionMainFunc(void*);
+
+int32_t startListener(Session*);
+int32_t startOutbound(Session*);
+
+/**
+ * Session API
+ */
+void lockSession(Session*);
+void unlockSession(Session*);
+
+void lockSession(Session* session)
+{
+    if(session)
+    {
+        pthread_mutex_lock(&session->lock);
+    }
+    else
+    {
+        /* TODO: Add assert() */
+    }
+}
+void unlockSession(Session* session)
+{
+    if(session)
+    {
+        pthread_mutex_unlock(&session->lock);
+    }
+    else
+    {
+        /* TODO: Add assert() */
+    }
+}
+
 
 /**
  * Setup all sessions
@@ -136,7 +170,8 @@ void initSession(Session* session)
         /* On success of thread spawn */
         if(sessionPID >= 0)
         {
-            //
+            // Nothing to do here, it is now started
+            // TODO: We should probably attach this PID though
             //printf("Spawned session '%s'\n", session->name);
         }
         else
@@ -173,10 +208,33 @@ void sessionMainFunc(void* data)
      * 1. Server listenr (incoming connections)
      * 2. Server outbounder (outgoing connection)
      */
+    int32_t pids[2] = {-1, -1}; /* TODO: I recall onstack arrays are zeroed by gcc, this is not needed */
 
+    /* Start outbounder */
+    pids[0] = startListener(session);
+    pids[1] = startOutbound(session);
+
+    /* Management loop */
     while(1)
     {
         //sched_yield();
         //sleep(400);
     }
+}
+
+
+/**
+ * Starts the listener for inbound connections
+ * for the given Session
+ */
+int32_t startListener(Session* session)
+{
+    //
+    return -1;
+}
+
+int32_t startOutbound(Session* session)
+{
+    //
+    return -1;
 }
