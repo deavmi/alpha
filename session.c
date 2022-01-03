@@ -10,6 +10,9 @@
 #include "types.h"
 #include<stdio.h>
 
+
+#include<pthread.h>
+
 #include <sys/mman.h>
 
 #define _GNU_SOURCE
@@ -20,6 +23,7 @@
  * Globals
  */
 Session* sessionQueue = 0;
+pthread_mutex_t sessionQueueLock;
 
 /*
  * Prototypes
@@ -32,8 +36,12 @@ void sessionMainFunc(void*);
  */
 void setupSessions(Session* head)
 {
-    /* Store the head into a global variable */
+    /**
+     * Store the head into a global variable
+     * and also initialize the mutex for it
+     */
     sessionQueue = head;
+    pthread_mutex_init(&sessionQueueLock, 0);
 
     uint8_t i = 0;
     while(head)
