@@ -1,4 +1,5 @@
 #include<stdint.h>
+#include<pthread.h>
 
 struct Adapter
 {
@@ -64,6 +65,9 @@ struct Session
     
     /* Hooks */
     HookSet hooks;
+
+    /* Lock */
+    pthread_mutex_t lock;
 
     /* Next Session instance */
     struct Session* next;
