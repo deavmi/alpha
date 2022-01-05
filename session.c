@@ -90,6 +90,7 @@ void setupSessions(Session* head)
 
 void initSession(Session* session)
 {
+    assert(session);
     //printf("Initializing session '%s'...\n", session->name);
 
     /**
@@ -198,7 +199,7 @@ void sessionMainFunc(void* data)
      * 1. Server listenr (incoming connections)
      * 2. Server outbounder (outgoing connection)
      */
-    int32_t pids[2] = {-1, -1}; /* TODO: I recall onstack arrays are zeroed by gcc, this is not needed */
+    int32_t pids[2] = {0, 0}; /* TODO: I recall onstack arrays are zeroed by gcc, this is not needed */
 
     /* Start outbounder */
     pids[0] = startListener(session);
