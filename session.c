@@ -43,6 +43,9 @@ int32_t startOutbound(Session*);
 void lockSession(Session*);
 void unlockSession(Session*);
 
+
+void managementLoop();
+
 void lockSession(Session* session)
 {
     assert(session);
@@ -53,6 +56,7 @@ void unlockSession(Session* session)
     assert(session);
     pthread_mutex_unlock(&session->lock);
 }
+
 
 
 /**
@@ -205,6 +209,31 @@ void sessionMainFunc(void* data)
     pids[0] = startListener(session);
     pids[1] = startOutbound(session);
 
+
+    if(pids[0] > 0)
+    {
+        //Bind
+    }
+    else
+    {
+        /* TODO: Debug print message about bind failing */
+    }
+
+    if(pids[1] > 0)
+    {
+        //Outbound good
+    }
+    else
+    {
+        /* TODO: Debug print message about failing to outbound */
+    }
+
+    /* Enter management loop */
+    managementLoop();
+}
+
+void managementLoop()
+{
     /* Management loop */
     while(1)
     {
